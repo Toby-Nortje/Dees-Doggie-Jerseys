@@ -98,31 +98,22 @@ const StockPage = () => {
     });
 
     let tempDefault = test;
-
+    
+    
     if (priceFilter.minPrice !== "" && priceFilter.maxPrice !== "") {
-      tempColor = tempColor.filter(
-        (stock) =>
-          stock.cost > priceFilter.minPrice &&
-          stock.cost < priceFilter.maxPrice,
-      );
+      
+      [tempColor, tempSize, tempStock, tempDefault]=[tempColor, tempSize, tempStock, tempDefault].map((item) => {
+        return item.filter(
+          (stock) =>
+          parseInt(stock.cost) >= parseInt(priceFilter.minPrice) &&
+          parseInt(stock.cost) <= parseInt(priceFilter.maxPrice)
+        );
+        
+      });
+     
+      
 
-      tempSize = tempSize.filter(
-        (stock) =>
-          stock.cost > priceFilter.minPrice &&
-          stock.cost < priceFilter.maxPrice,
-      );
-      tempStock = tempStock.filter(
-        (stock) =>
-          stock.cost > priceFilter.minPrice &&
-          stock.cost < priceFilter.maxPrice,
-      );
-      console.log(tempDefault);
-      tempDefault = tempDefault.filter(
-        (stock) =>
-          stock.cost > priceFilter.minPrice &&
-          stock.cost < priceFilter.maxPrice,
-      );
-      console.log(tempDefault);
+      
     }
 
     // const jsonObject = tempStock.map(JSON.stringify);
@@ -212,6 +203,8 @@ const StockPage = () => {
 
   const handlePriceRange = (min, max) => {
     setPriceFilter({ minPrice: min, maxPrice: max });
+    setMinPrice('');
+    setMaxPrice('');
   };
 
   const handleActiveColor = (id) => {

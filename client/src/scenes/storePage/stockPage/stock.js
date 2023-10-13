@@ -2,7 +2,7 @@ export const stockItems = [
   {
     _id: 1,
     title: "Card Title 1",
-    cost: "100",
+    cost: 100,
     imageSrc: "/images/IMG-20230307-WA0019.jpg",
     color: ["Red"],
     size: "m",
@@ -10,7 +10,7 @@ export const stockItems = [
   {
     _id: 2,
     title: "Card Title 2",
-    cost: "150",
+    cost: 150,
     imageSrc: "/images/IMG-20230307-WA0018.jpg",
     color: ["Green"],
     size: "l",
@@ -18,7 +18,7 @@ export const stockItems = [
   {
     _id: 3,
     title: "Card Title 3",
-    cost: "200",
+    cost: 200,
     imageSrc: "/images/IMG-20230307-WA0019.jpg",
     color: ["Purple"],
     size: "xl",
@@ -26,7 +26,7 @@ export const stockItems = [
   {
     _id: 4,
     title: "Card Title 4",
-    cost: "120",
+    cost: 120,
     imageSrc: "/images/IMG-20230307-WA0017.jpg",
     color: ["Red"],
     size: "s",
@@ -34,7 +34,7 @@ export const stockItems = [
   {
     _id: 5,
     title: "Card Title 5",
-    cost: "160",
+    cost: 160,
     imageSrc: "/images/IMG-20230307-WA0018.jpg",
     color: ["Red"],
     size: "m",
@@ -42,7 +42,7 @@ export const stockItems = [
   {
     _id: 6,
     title: "Card Title 6",
-    cost: "130",
+    cost: 130,
     imageSrc: "/images/IMG-20230307-WA0018.jpg",
     color: ["Red"],
     size: "xs",
@@ -50,7 +50,7 @@ export const stockItems = [
   {
     _id: 7,
     title: "Card Title 7",
-    cost: "200",
+    cost: 200,
     imageSrc: "/images/IMG-20230307-WA0019.jpg",
     color: ["Green"],
     size: "l",
@@ -58,7 +58,7 @@ export const stockItems = [
   {
     _id: 8,
     title: "Card Title 8",
-    cost: "120",
+    cost: 120,
     imageSrc: "/images/IMG-20230307-WA0017.jpg",
     color: ["Red"],
     size: "xs",
@@ -66,7 +66,7 @@ export const stockItems = [
   {
     _id: 9,
     title: "Card Title 9",
-    cost: "160",
+    cost: 160,
     imageSrc: "/images/IMG-20230307-WA0018.jpg",
     color: ["Red"],
     size: "s",
@@ -74,7 +74,7 @@ export const stockItems = [
   {
     _id: 10,
     title: "Card Title 10",
-    cost: "130",
+    cost: 130,
     imageSrc: "/images/IMG-20230307-WA0018.jpg",
     color: ["Blue"],
     size: "s",
@@ -82,7 +82,7 @@ export const stockItems = [
   {
     _id: 11,
     title: "Card Title 11",
-    cost: "120",
+    cost: 120,
     imageSrc: "/images/IMG-20230307-WA0018.jpg",
     color: ["Yellow"],
     size: "xs",
