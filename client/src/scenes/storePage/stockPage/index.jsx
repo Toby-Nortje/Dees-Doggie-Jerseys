@@ -1,6 +1,7 @@
 import "./index.css";
 //https://new-99.myshopify.com/collections/all
 import { useEffect, useState } from "react";
+import { useMediaQuery } from "@mui/material";
 
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -18,6 +19,7 @@ import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Pagination from "@mui/material/Pagination";
+import MenuIcon from '@mui/icons-material/Menu';
 
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
@@ -27,6 +29,9 @@ import StockCard from "components/StockCard";
 import { stockItems } from "./stock";
 
 const StockPage = () => {
+  const isLargeScreens = useMediaQuery("(min-width: 1000px)");
+  const isMediumScreens = useMediaQuery("(min-width: 640px)");
+  
   const [test, setTest] = useState(stockItems);
   const [filteredStock, setFilteredStock] = useState([]);
   const [minPrice, setMinPrice] = useState("");
@@ -37,6 +42,7 @@ const StockPage = () => {
     minPrice: "",
     maxPrice: "",
   });
+  const [sidebar, setSidebar] = useState(false);
   const [expanded, setExpanded] = useState(true);
   const [alignment, setAlignment] = useState("grid");
   const [sort, setSort] = useState("featured");
@@ -149,51 +155,7 @@ const StockPage = () => {
       default:
         break;
     }
-  })
-
-  // switch (sort) {
-  //   case "featured":
-  //     filteredStock.sort((p1, p2) =>
-  //       p1._id > p2._id ? 1 : p1._id < p2._id ? -1 : 0,
-  //     );
-  //     break;
-  //   case "price-ascend":
-  //     filteredStock.sort((p1, p2) =>
-  //       p1.cost > p2.cost ? 1 : p1.cost < p2.cost ? -1 : 0,
-  //     );
-  //     break;
-
-  //   case "price-decend":
-  //     filteredStock.sort((p1, p2) =>
-  //       p1.cost < p2.cost ? 1 : p1.cost > p2.cost ? -1 : 0,
-  //     );
-  //     break;
-
-  //   case "date-ascend":
-  //     break;
-
-  //   case "date-decend":
-  //     break;
-
-  //   default:
-  //     break;
-  // }
-
-  // if (sort === "featured") {
-  //   filteredStock.sort((p1, p2) =>
-  //     p1._id > p2._id ? 1 : p1._id < p2._id ? -1 : 0,
-  //   );
-  // } else if (sort === "price-ascend") {
-  //   filteredStock.sort((p1, p2) =>
-  //     p1.cost > p2.cost ? 1 : p1.cost < p2.cost ? -1 : 0,
-  //   );
-  // } else if (sort === "price-decend") {
-  //   filteredStock.sort((p1, p2) =>
-  //     p1.cost < p2.cost ? 1 : p1.cost > p2.cost ? -1 : 0,
-  //   );
-  // } else if (sort === "date-ascend") {
-  // } else if (sort === "date-decend") {
-  // }
+  });
 
   let stockSlice = filteredStock.slice((page - 1) * perPage, page * perPage);
 
@@ -251,9 +213,14 @@ const StockPage = () => {
 
   return (
     <div>
-      <div className="store-stock">
+      <div className="store-stock" style={{
+        flexDirection: isMediumScreens ? 'row' : 'column'
+      }}>
         <div className="store-sidebar">
+          <Accordion  expanded={isMediumScreens ? true : sidebar} onChange={() => setSidebar(!sidebar)}>{isMediumScreens ? null : (<AccordionSummary expandIcon={isMediumScreens ? null : <MenuIcon />} ></AccordionSummary>)} 
+          <AccordionDetails>
           <div className="sb-item">
+          
             <Accordion
               expanded={expanded}
               onChange={() => setExpanded(!expanded)}
@@ -351,8 +318,12 @@ const StockPage = () => {
                 })}
               </AccordionDetails>
             </Accordion>
+            
           </div>
+          </AccordionDetails>
+        </Accordion>
         </div>
+        
         <div className="store-mainsection">
           <div className="store-nav">
             <ToggleButtonGroup
@@ -367,7 +338,7 @@ const StockPage = () => {
                 <ListRoundedIcon fontSize="large" />
               </ToggleButton>
             </ToggleButtonGroup>
-            <FormControl sx={{ minWidth: "200px" }}>
+             <FormControl sx={{ minWidth: isMediumScreens ? "200px" : 'auto'}}> 
               <Select
                 value={sort}
                 onChange={(e) => {
@@ -382,16 +353,16 @@ const StockPage = () => {
                 <MenuItem value="date-decend">Date, old to new</MenuItem>
               </Select>
             </FormControl>
-            <div>
-              Showing{" "}
-              {`${(page - 1) * perPage + 1} - ${
-                page === pages ? filteredStock.length : page * perPage
-              }`}{" "}
-              of {`${filteredStock.length}`}
-            </div>
+        {isMediumScreens ? (<div>
+          Showing{" "}
+          {`${(page - 1) * perPage + 1} - ${
+            page === pages ? filteredStock.length : page * perPage
+          }`}{" "}
+          of {`${filteredStock.length}`}
+        </div>) : null}
           </div>
           <div className="store-body">
-            <div className="store-grid">
+            <div className="store-grid" style={{gridTemplateColumns: isMediumScreens ? '1fr 1fr 1fr' : '1fr 1fr'}}>
               {stockSlice.map((stock, index) => {
                 return (
                   <StockCard

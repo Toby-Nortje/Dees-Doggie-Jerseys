@@ -13,7 +13,7 @@
 }
 
 .sb-item {
-  padding: 1rem 0;
+  padding: 2% 0;
 }
 
 .sb-price-grid {
@@ -51,6 +51,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px;
+  
 }
 
 .store-view {
@@ -76,13 +77,10 @@
 
 .store-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  
   grid-template-rows: repeat(1fr);
   gap: 2% 2%;
-  grid-template-areas:
-    ". . ."
-    ". . ."
-    ". . .";
+  
 }
 
 .page-nav {
