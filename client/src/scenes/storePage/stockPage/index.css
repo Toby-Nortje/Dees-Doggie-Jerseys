@@ -1,15 +1,19 @@
 .store-stock {
   display: flex;
   flex-direction: row;
+  padding: 2%;
+  gap: 1rem;
 }
 
 .store-sidebar {
   flex-basis: 30%;
-  padding: 2%;
 }
 
 .store-mainsection {
   flex-basis: 70%;
+  padding: 2%;
+  background: #ebd4cb;
+  border-radius: 5px;
 }
 
 .sb-item {
@@ -26,8 +30,21 @@
 
 .price-filter {
   text-align: center;
-  border: 1px solid black;
+  border-radius: 2px;
   cursor: pointer;
+  background: #b6465f;
+  color: white;
+  padding: 5px;
+  font-size: 1.3rem;
+  user-select: none;
+}
+
+.price-filter:hover {
+  background: #c05d73;
+}
+
+.price-filter:active {
+  transform: scale(1.05);
 }
 
 .price-input {
@@ -50,8 +67,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
-  
+  margin-bottom: 1rem;
 }
 
 .store-view {
@@ -60,27 +76,21 @@
 }
 .store-view-icon {
   cursor: pointer;
-  color: gray;
+
   transition: color 0.5s;
   -moz-transition: color 0.5s; /* Firefox 4 */
   -webkit-transition: color 0.5s; /* Safari and Chrome */
   -o-transition: color 0.5s; /* Opera */
 }
 
-.store-view-icon:hover {
-  color: black;
-}
-
 .store-body {
-  padding: 3%;
 }
 
 .store-grid {
   display: grid;
-  
+
   grid-template-rows: repeat(1fr);
   gap: 2% 2%;
-  
 }
 
 .page-nav {
@@ -88,3 +98,7 @@
   margin-top: 3rem;
   justify-content: center;
 }
+
+/* .css-46bh2p-MuiCardContent-root {
+  padding-bottom: 16px !important;
+} */

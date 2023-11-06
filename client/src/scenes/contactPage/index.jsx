@@ -11,6 +11,8 @@ import BusinessIcon from "@mui/icons-material/Business";
 import PhoneIcon from "@mui/icons-material/Phone";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 
+import SectionTitle from "components/SectionTitle";
+
 const ContactPage = () => {
   const isLargeScreens = useMediaQuery("(min-width: 1000px)");
   const isMediumScreens = useMediaQuery("(min-width: 640px)");
@@ -25,7 +27,7 @@ const ContactPage = () => {
   return (
     <div>
       <section id="contact1">
-        <h3 className="contact-title">Contact Us</h3>
+        <SectionTitle title='Contact Us'/>
         <div
           className="contact-body"
           style={{ flexDirection: isMediumScreens ? "row" : "column" }}

@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import NavbarMain from "scenes/navbar";
 import Breadcrumbs from "components/Breadcrumbs";
+import SectionTitle from "components/SectionTitle";
 
 
 const StorePage = () => {
@@ -16,8 +17,8 @@ const StorePage = () => {
   const breadcrumbs = location.pathname.split("/").slice(1);
 
   return (
-    <div>
-      <div className="breadcrumb">
+    <section id='store'>
+      {/* <div className="breadcrumb">
         <Link className="bread" to="/">
           Home
         </Link>
@@ -32,12 +33,12 @@ const StorePage = () => {
             </div>
           )
         )}
+      </div> */}
+      <div style={{ textTransform: "capitalize" }}>
+        <SectionTitle title={breadcrumbs[breadcrumbs.length - 1]} />
       </div>
-      <h1 style={{ textTransform: "capitalize" }}>
-        {breadcrumbs[breadcrumbs.length - 1]}
-      </h1>
       <Outlet />
-    </div>
+    </section>
   );
 };
 
