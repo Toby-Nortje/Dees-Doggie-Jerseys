@@ -9,15 +9,15 @@ import {
 } from "react-router-dom";
 import NavbarMain from "scenes/navbar";
 import Breadcrumbs from "components/Breadcrumbs";
-
+import SectionTitle from "components/SectionTitle";
 
 const StorePage = () => {
   let location = useLocation();
   const breadcrumbs = location.pathname.split("/").slice(1);
 
   return (
-    <div>
-      <div className="breadcrumb">
+    <section id="store">
+      {/* <div className="breadcrumb">
         <Link className="bread" to="/">
           Home
         </Link>
@@ -32,12 +32,10 @@ const StorePage = () => {
             </div>
           )
         )}
-      </div>
-      <h1 style={{ textTransform: "capitalize" }}>
-        {breadcrumbs[breadcrumbs.length - 1]}
-      </h1>
+      </div> */}
+      <div style={{ textTransform: "capitalize" }}></div>
       <Outlet />
-    </div>
+    </section>
   );
 };
 

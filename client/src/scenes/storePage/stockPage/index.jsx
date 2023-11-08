@@ -2,6 +2,7 @@ import "./index.css";
 //https://new-99.myshopify.com/collections/all
 import { useEffect, useState } from "react";
 import { useMediaQuery } from "@mui/material";
+import { useQueryParams } from "hooks";
 
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -19,19 +20,21 @@ import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Pagination from "@mui/material/Pagination";
-import MenuIcon from '@mui/icons-material/Menu';
+import MenuIcon from "@mui/icons-material/Menu";
+import Box from "@mui/material/Box";
 
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import FlexBetween from "components/FlexBetween";
 
 import StockCard from "components/StockCard";
+import StockList from "components/StockList";
 import { stockItems } from "./stock";
 
 const StockPage = () => {
   const isLargeScreens = useMediaQuery("(min-width: 1000px)");
   const isMediumScreens = useMediaQuery("(min-width: 640px)");
-  
+
   const [test, setTest] = useState(stockItems);
   const [filteredStock, setFilteredStock] = useState([]);
   const [minPrice, setMinPrice] = useState("");
@@ -104,22 +107,20 @@ const StockPage = () => {
     });
 
     let tempDefault = test;
-    
-    
+
     if (priceFilter.minPrice !== "" && priceFilter.maxPrice !== "") {
-      
-      [tempColor, tempSize, tempStock, tempDefault]=[tempColor, tempSize, tempStock, tempDefault].map((item) => {
+      [tempColor, tempSize, tempStock, tempDefault] = [
+        tempColor,
+        tempSize,
+        tempStock,
+        tempDefault,
+      ].map((item) => {
         return item.filter(
           (stock) =>
-          parseInt(stock.cost) >= parseInt(priceFilter.minPrice) &&
-          parseInt(stock.cost) <= parseInt(priceFilter.maxPrice)
+            parseInt(stock.cost) >= parseInt(priceFilter.minPrice) &&
+            parseInt(stock.cost) <= parseInt(priceFilter.maxPrice),
         );
-        
       });
-     
-      
-
-      
     }
 
     // const jsonObject = tempStock.map(JSON.stringify);
@@ -143,11 +144,11 @@ const StockPage = () => {
   filteredStock.sort((p1, p2) => {
     switch (sort) {
       case "featured":
-          return p1._id > p2._id ? 1 : p1._id < p2._id ? -1 : 0
+        return p1._id > p2._id ? 1 : p1._id < p2._id ? -1 : 0;
       case "price-ascend":
-          return p1.cost > p2.cost ? 1 : p1.cost < p2.cost ? -1 : 0
+        return p1.cost > p2.cost ? 1 : p1.cost < p2.cost ? -1 : 0;
       case "price-decend":
-          return p1.cost < p2.cost ? 1 : p1.cost > p2.cost ? -1 : 0
+        return p1.cost < p2.cost ? 1 : p1.cost > p2.cost ? -1 : 0;
       case "date-ascend":
         break;
       case "date-decend":
@@ -160,13 +161,15 @@ const StockPage = () => {
   let stockSlice = filteredStock.slice((page - 1) * perPage, page * perPage);
 
   const handleAlignment = (event, newAlignment) => {
-    setAlignment(newAlignment);
+    if (newAlignment !== null) {
+      setAlignment(newAlignment);
+    }
   };
 
   const handlePriceRange = (min, max) => {
     setPriceFilter({ minPrice: min, maxPrice: max });
-    setMinPrice('');
-    setMaxPrice('');
+    setMinPrice("");
+    setMaxPrice("");
   };
 
   const handleActiveColor = (id) => {
@@ -213,123 +216,134 @@ const StockPage = () => {
 
   return (
     <div>
-      <div className="store-stock" style={{
-        flexDirection: isMediumScreens ? 'row' : 'column'
-      }}>
+      <div
+        className="store-stock"
+        style={{
+          flexDirection: isMediumScreens ? "row" : "column",
+        }}
+      >
         <div className="store-sidebar">
-          <Accordion  expanded={isMediumScreens ? true : sidebar} onChange={() => setSidebar(!sidebar)}>{isMediumScreens ? null : (<AccordionSummary expandIcon={isMediumScreens ? null : <MenuIcon />} ></AccordionSummary>)} 
-          <AccordionDetails>
-          <div className="sb-item">
-          
-            <Accordion
-              expanded={expanded}
-              onChange={() => setExpanded(!expanded)}
-            >
-              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                <h3>Price</h3>
-              </AccordionSummary>
-              <AccordionDetails>
-                <div className="sb-price-grid">
-                  <div style={{ gridArea: "1 / 2 / 2 / 3" }}>
-                    <div>To: </div>
-                    <div className="price-input">
-                      <input
-                        value={maxPrice}
-                        type="number"
-                        placeholder="400"
-                        style={{ width: "100%" }}
-                        onChange={(e) => {
-                          setMaxPrice(e.target.value);
-                        }}
-                      />
+          <Accordion
+            sx={{ background: "#ebd4cb" }}
+            expanded={isMediumScreens ? true : sidebar}
+            onChange={() => setSidebar(!sidebar)}
+          >
+            {isMediumScreens ? null : (
+              <AccordionSummary
+                expandIcon={isMediumScreens ? null : <MenuIcon />}
+              ></AccordionSummary>
+            )}
+            <AccordionDetails>
+              <div className="sb-item">
+                <Accordion
+                  expanded={expanded}
+                  onChange={() => setExpanded(!expanded)}
+                >
+                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    <h3>Price</h3>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <div className="sb-price-grid">
+                      <div style={{ gridArea: "1 / 2 / 2 / 3" }}>
+                        <div>To: </div>
+                        <div className="price-input">
+                          <input
+                            value={maxPrice}
+                            type="number"
+                            placeholder="400"
+                            style={{ width: "100%" }}
+                            onChange={(e) => {
+                              setMaxPrice(e.target.value);
+                            }}
+                          />
+                        </div>
+                      </div>
+                      <div style={{ gridArea: "1 / 1 / 2 / 2" }}>
+                        <div>From: </div>
+                        <div className="price-input">
+                          <input
+                            value={minPrice}
+                            type="number"
+                            placeholder="0"
+                            style={{ width: "100%" }}
+                            onChange={(e) => {
+                              setMinPrice(e.target.value);
+                            }}
+                          />
+                        </div>
+                      </div>
+                      <div style={{ gridArea: "2 / 1 / 3 / 3" }}>
+                        <div
+                          className="price-filter"
+                          onClick={() => {
+                            handlePriceRange(minPrice, maxPrice);
+                          }}
+                        >
+                          Filter
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <div style={{ gridArea: "1 / 1 / 2 / 2" }}>
-                    <div>From: </div>
-                    <div className="price-input">
-                      <input
-                        value={minPrice}
-                        type="number"
-                        placeholder="0"
-                        style={{ width: "100%" }}
-                        onChange={(e) => {
-                          setMinPrice(e.target.value);
-                        }}
-                      />
-                    </div>
-                  </div>
-                  <div style={{ gridArea: "2 / 1 / 3 / 3" }}>
-                    <div
-                      className="price-filter"
-                      onClick={() => {
-                        handlePriceRange(minPrice, maxPrice);
-                      }}
-                    >
-                      Filter
-                    </div>
-                  </div>
-                </div>
-              </AccordionDetails>
-            </Accordion>
-          </div>
+                  </AccordionDetails>
+                </Accordion>
+              </div>
 
-          <div className="sb-item">
-            <Accordion>
-              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                <h3>Colour</h3>
-              </AccordionSummary>
-              <AccordionDetails>
-                {colors.map((color) => {
-                  return (
-                    <FlexBetween key={color._id}>
-                      <div>{color.type}</div>
-                      <Checkbox
-                        color="default"
-                        checked={color.active}
-                        onClick={() => {
-                          handleActiveColor(color._id);
-                        }}
-                      />
-                    </FlexBetween>
-                  );
-                })}
-              </AccordionDetails>
-            </Accordion>
-          </div>
-          <div className="sb-item">
-            <Accordion>
-              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                <h3>Size</h3>
-              </AccordionSummary>
-              <AccordionDetails>
-                {sizes.map((size) => {
-                  return (
-                    <FlexBetween key={size._id}>
-                      <div>{size.type}</div>
-                      <Checkbox
-                        color="default"
-                        checked={size.active}
-                        onClick={() => {
-                          handleActiveSize(size._id);
-                        }}
-                      />
-                    </FlexBetween>
-                  );
-                })}
-              </AccordionDetails>
-            </Accordion>
-            
-          </div>
-          </AccordionDetails>
-        </Accordion>
+              <div className="sb-item">
+                <Accordion>
+                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    <h3>Colour</h3>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    {colors.map((color) => {
+                      return (
+                        <FlexBetween key={color._id}>
+                          <div>{color.type}</div>
+                          <Checkbox
+                            color="default"
+                            checked={color.active}
+                            onClick={() => {
+                              handleActiveColor(color._id);
+                            }}
+                          />
+                        </FlexBetween>
+                      );
+                    })}
+                  </AccordionDetails>
+                </Accordion>
+              </div>
+              <div className="sb-item">
+                <Accordion>
+                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    <h3>Size</h3>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    {sizes.map((size) => {
+                      return (
+                        <FlexBetween key={size._id}>
+                          <div>{size.type}</div>
+                          <Checkbox
+                            color="default"
+                            checked={size.active}
+                            onClick={() => {
+                              handleActiveSize(size._id);
+                            }}
+                          />
+                        </FlexBetween>
+                      );
+                    })}
+                  </AccordionDetails>
+                </Accordion>
+              </div>
+            </AccordionDetails>
+          </Accordion>
         </div>
-        
+
         <div className="store-mainsection">
           <div className="store-nav">
             <ToggleButtonGroup
               value={alignment}
               exclusive
               onChange={handleAlignment}
+              sx={{ background: "white" }}
             >
               <ToggleButton value="grid" className="store-view-icon">
                 <GridViewRoundedIcon fontSize="large" />
@@ -338,13 +352,14 @@ const StockPage = () => {
                 <ListRoundedIcon fontSize="large" />
               </ToggleButton>
             </ToggleButtonGroup>
-             <FormControl sx={{ minWidth: isMediumScreens ? "200px" : 'auto'}}> 
+            <FormControl sx={{ minWidth: isMediumScreens ? "200px" : "auto" }}>
               <Select
                 value={sort}
                 onChange={(e) => {
                   setSort(e.target.value);
                 }}
                 displayEmpty
+                sx={{ background: "white" }}
               >
                 <MenuItem value="featured">Featured</MenuItem>
                 <MenuItem value="price-ascend">Price, low to high</MenuItem>
@@ -353,27 +368,62 @@ const StockPage = () => {
                 <MenuItem value="date-decend">Date, old to new</MenuItem>
               </Select>
             </FormControl>
-        {isMediumScreens ? (<div>
-          Showing{" "}
-          {`${(page - 1) * perPage + 1} - ${
-            page === pages ? filteredStock.length : page * perPage
-          }`}{" "}
-          of {`${filteredStock.length}`}
-        </div>) : null}
+            {isMediumScreens ? (
+              <div>
+                Showing{" "}
+                {`${pages === 0 ? 0 : (page - 1) * perPage + 1} - ${
+                  page === pages
+                    ? filteredStock.length
+                    : pages === 0
+                    ? 0
+                    : page * perPage
+                }`}{" "}
+                of {`${filteredStock.length}`}
+              </div>
+            ) : null}
           </div>
           <div className="store-body">
-            <div className="store-grid" style={{gridTemplateColumns: isMediumScreens ? '1fr 1fr 1fr' : '1fr 1fr'}}>
-              {stockSlice.map((stock, index) => {
-                return (
-                  <StockCard
-                    key={index}
-                    title={stock.title}
-                    cost={stock.cost}
-                    imgSrc={stock.imageSrc}
-                  />
-                );
-              })}
-            </div>
+            {alignment === "grid" ? (
+              <div
+                className="store-grid"
+                style={{
+                  gridTemplateColumns: isMediumScreens
+                    ? "1fr 1fr 1fr"
+                    : "1fr 1fr",
+                }}
+              >
+                {stockSlice.map((stock, index) => {
+                  return (
+                    <StockCard
+                      key={stock._id}
+                      id={stock._id}
+                      title={stock.title}
+                      cost={parseFloat(stock.cost)}
+                      imageSrc={stock.imageSrc}
+                      color={stock.color}
+                      size={stock.size}
+                    />
+                  );
+                })}
+              </div>
+            ) : (
+              <div>
+                {stockSlice.map((stock, index) => {
+                  return (
+                    <StockList
+                      key={stock._id}
+                      title={stock.title}
+                      cost={stock.cost}
+                      desc={"description"}
+                      imageSrc={stock.imageSrc}
+                      color={stock.color}
+                      size={stock.size}
+                    />
+                  );
+                })}
+              </div>
+            )}
+
             <Pagination
               className="page-nav"
               count={pages}

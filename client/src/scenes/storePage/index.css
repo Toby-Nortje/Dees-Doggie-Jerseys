@@ -1,5 +1,9 @@
+#store {
+  background: #da9f93;
+}
+
 .breadcrumb {
-  background: lightgrey;
+  background: none;
   padding: 0.5rem 1rem;
   margin: 0;
 }

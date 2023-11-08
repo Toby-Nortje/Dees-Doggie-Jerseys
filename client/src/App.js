@@ -9,6 +9,7 @@ import MainStorePage from "scenes/storePage/mainStorePage";
 import StockPage from "scenes/storePage/stockPage";
 import CustomPage from "scenes/storePage/customPage";
 import PricePage from "scenes/storePage/pricePage";
+import ItemPage from "scenes/storePage/itemPage";
 
 import { useSelector } from "react-redux";
 import { useMemo, useEffect } from "react";
@@ -43,6 +44,7 @@ function App() {
                 element={<StockPage />}
                 //handle={{ crumb: (data) => <span>{data.threadName}</span> }}
               />
+              <Route path="item/:id" element={<ItemPage />} />
               <Route path="custom" element={<CustomPage />} />
               <Route path="price" element={<PricePage />} />
             </Route>
