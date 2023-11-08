@@ -2,6 +2,7 @@ import "./index.css";
 //https://new-99.myshopify.com/collections/all
 import { useEffect, useState } from "react";
 import { useMediaQuery } from "@mui/material";
+import { useQueryParams } from "hooks";
 
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -65,7 +66,6 @@ const StockPage = () => {
     { _id: 4, type: "l", active: false },
     { _id: 5, type: "xl", active: false },
   ]);
-  console.log(filteredStock);
 
   useEffect(() => {
     let tempColor = [];
@@ -395,7 +395,8 @@ const StockPage = () => {
                 {stockSlice.map((stock, index) => {
                   return (
                     <StockCard
-                      key={index}
+                      key={stock._id}
+                      id={stock._id}
                       title={stock.title}
                       cost={parseFloat(stock.cost)}
                       imageSrc={stock.imageSrc}
@@ -410,6 +411,7 @@ const StockPage = () => {
                 {stockSlice.map((stock, index) => {
                   return (
                     <StockList
+                      key={stock._id}
                       title={stock.title}
                       cost={stock.cost}
                       desc={"description"}

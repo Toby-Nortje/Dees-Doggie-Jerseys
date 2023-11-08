@@ -11,13 +11,12 @@ import NavbarMain from "scenes/navbar";
 import Breadcrumbs from "components/Breadcrumbs";
 import SectionTitle from "components/SectionTitle";
 
-
 const StorePage = () => {
   let location = useLocation();
   const breadcrumbs = location.pathname.split("/").slice(1);
 
   return (
-    <section id='store'>
+    <section id="store">
       {/* <div className="breadcrumb">
         <Link className="bread" to="/">
           Home
@@ -34,9 +33,7 @@ const StorePage = () => {
           )
         )}
       </div> */}
-      <div style={{ textTransform: "capitalize" }}>
-        <SectionTitle title={breadcrumbs[breadcrumbs.length - 1]} />
-      </div>
+      <div style={{ textTransform: "capitalize" }}></div>
       <Outlet />
     </section>
   );

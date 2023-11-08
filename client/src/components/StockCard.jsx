@@ -10,8 +10,9 @@ import {
   withStyles,
 } from "@mui/material";
 import FlexBetween from "./FlexBetween";
+import { Link } from "react-router-dom";
 
-const StockCard = ({ title, cost, imageSrc, desc, size, color }) => {
+const StockCard = ({ id, title, cost, imageSrc, desc, size, color }) => {
   const isLargeScreens = useMediaQuery("(min-width: 1000px)");
   const isMediumScreens = useMediaQuery("(min-width: 640px)");
 
@@ -35,6 +36,7 @@ const StockCard = ({ title, cost, imageSrc, desc, size, color }) => {
           position: "absolute",
           content: `''`,
         },
+        paddingBottom: "3%",
       }}
     >
       <CardMedia
@@ -45,17 +47,15 @@ const StockCard = ({ title, cost, imageSrc, desc, size, color }) => {
         image={imageSrc}
       />
       {/* https://i.pinimg.com/originals/6e/d1/6a/6ed16a033c81ccaf082d6eac7634c16a.jpg */}
-      <Box
-        sx={{
-          padding: "10px",
-        }}
-      >
-        <CardContent
+
+      <CardContent sx={{ padding: "5%" }}>
+        <div
           style={{
             display: "flex",
             flexDirection: "column",
             gap: "5px",
-            boxShadow: "0px 0px 2px 5px lightgrey",
+            boxShadow: "2px 2px 10px 2px lightgrey",
+            padding: "10% 0",
           }}
         >
           <div
@@ -67,9 +67,10 @@ const StockCard = ({ title, cost, imageSrc, desc, size, color }) => {
               padding: "5px",
             }}
           >
-            {color.map((color) => {
+            {color.map((color, index) => {
               return (
                 <div
+                  key={index}
                   style={{
                     background: color,
                     width: "17px",
@@ -117,7 +118,8 @@ const StockCard = ({ title, cost, imageSrc, desc, size, color }) => {
               alignItems: "center",
             }}
           >
-            <div
+            <Link
+              to={`/store/item/${id}`}
               style={{
                 background: "grey",
                 color: "white",
@@ -128,10 +130,10 @@ const StockCard = ({ title, cost, imageSrc, desc, size, color }) => {
               }}
             >
               Order Now
-            </div>
+            </Link>
           </Box>
-        </CardContent>
-      </Box>
+        </div>
+      </CardContent>
     </Card>
   );
 };
