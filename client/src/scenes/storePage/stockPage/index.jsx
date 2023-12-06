@@ -31,6 +31,10 @@ import StockCard from "components/StockCard";
 import StockList from "components/StockList";
 import { stockItems } from "./stock";
 
+const removeDuplicate = (arr) => {
+  return [...new Set(arr)];
+};
+
 const StockPage = () => {
   const isLargeScreens = useMediaQuery("(min-width: 1000px)");
   const isMediumScreens = useMediaQuery("(min-width: 640px)");
@@ -123,10 +127,6 @@ const StockPage = () => {
       });
     }
 
-    // const jsonObject = tempStock.map(JSON.stringify);
-    // const uniqueSet = new Set(jsonObject);
-    // const uniqueArray = Array.from(uniqueSet).map(JSON.parse);
-
     if (colorFilter.length === 0 && sizeFilter.length === 0) {
       setFilteredStock(tempDefault);
     } else if (colorFilter.length === 0 && sizeFilter.length > 0) {
@@ -134,8 +134,13 @@ const StockPage = () => {
     } else if (sizeFilter.length === 0 && colorFilter.length > 0) {
       setFilteredStock(tempColor);
     } else {
-      setFilteredStock(tempStock);
+      setFilteredStock(removeDuplicate(tempStock));
     }
+
+    // const testing = filteredStock.
+    // const uniqueSet = new Set(filteredStock);
+    // const uniqueArray = Array.from(uniqueSet).map(JSON.parse);
+    // setFilteredStock(uniqueSet);
   }, [colorFilter, sizeFilter, priceFilter]);
 
   const perPage = 6;
@@ -213,6 +218,8 @@ const StockPage = () => {
   const handlePageChange = (event, value) => {
     setPage(value);
   };
+
+  console.log(filteredStock);
 
   return (
     <div>
@@ -375,8 +382,8 @@ const StockPage = () => {
                   page === pages
                     ? filteredStock.length
                     : pages === 0
-                    ? 0
-                    : page * perPage
+                      ? 0
+                      : page * perPage
                 }`}{" "}
                 of {`${filteredStock.length}`}
               </div>

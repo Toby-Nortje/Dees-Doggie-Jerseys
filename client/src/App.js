@@ -13,43 +13,44 @@ import ItemPage from "scenes/storePage/itemPage";
 
 import { useSelector } from "react-redux";
 import { useMemo, useEffect } from "react";
-import { CssBaseline, ThemeProvider } from "@mui/material";
+import { CssBaseline } from "@mui/material";
+import { ThemeProvider } from "@mui/material/styles";
 import { createTheme } from "@mui/material";
 import { themeSettings } from "./theme";
 
 import ScrollToTop from "components/ScrollToTop";
 
 function App() {
-  const mode = useSelector((state) => state.mode); //Grabs the mode from state
-  const theme = useMemo(() => createTheme(themeSettings("light")), [mode]); //creates a theme based off the current mode | useMemo() updates the value when mode changes
-
+  const theme = createTheme(themeSettings());
   return (
     <div>
       <BrowserRouter>
-        <CssBaseline />
         <ScrollToTop />
-        <Routes>
-          <Route path="/" element={<MainPage />}>
-            <Route index element={<HomePage />} />
-            <Route path="about" element={<AboutPage />} />
-            <Route path="contact" element={<ContactPage />} />
-            <Route
-              path="store"
-              element={<StorePage />}
-              //handle={{ crumb: () => <Link to="/store/stock">Stock</Link> }}
-            >
-              <Route index element={<MainStorePage />} />
+        <CssBaseline />
+        <ThemeProvider theme={theme}>
+          <Routes>
+            <Route path="/" element={<MainPage />}>
+              <Route index element={<HomePage />} />
+              <Route path="about" element={<AboutPage />} />
+              <Route path="contact" element={<ContactPage />} />
               <Route
-                path="stock"
-                element={<StockPage />}
-                //handle={{ crumb: (data) => <span>{data.threadName}</span> }}
-              />
-              <Route path="item/:id" element={<ItemPage />} />
-              <Route path="custom" element={<CustomPage />} />
-              <Route path="price" element={<PricePage />} />
+                path="store"
+                element={<StorePage />}
+                //handle={{ crumb: () => <Link to="/store/stock">Stock</Link> }}
+              >
+                <Route index element={<MainStorePage />} />
+                <Route
+                  path="stock"
+                  element={<StockPage />}
+                  //handle={{ crumb: (data) => <span>{data.threadName}</span> }}
+                />
+                <Route path="stock/:id" element={<ItemPage />} />
+                <Route path="custom" element={<CustomPage />} />
+                <Route path="price" element={<PricePage />} />
+              </Route>
             </Route>
-          </Route>
-        </Routes>
+          </Routes>
+        </ThemeProvider>
       </BrowserRouter>
     </div>
   );

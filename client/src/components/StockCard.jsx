@@ -119,7 +119,7 @@ const StockCard = ({ id, title, cost, imageSrc, desc, size, color }) => {
             }}
           >
             <Link
-              to={`/store/item/${id}`}
+              to={`/store/stock/${id}`}
               style={{
                 background: "grey",
                 color: "white",
