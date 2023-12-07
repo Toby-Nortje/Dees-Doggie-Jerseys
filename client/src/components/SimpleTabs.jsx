@@ -31,7 +31,7 @@ function a11yProps(index) {
   };
 }
 
-const ImageTabs = () => {
+const ImageTabs = ({ tabs }) => {
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
@@ -46,20 +46,16 @@ const ImageTabs = () => {
           onChange={handleChange}
           aria-label="basic tabs example"
         >
-          <Tab label="Item One" {...a11yProps(0)} />
-          <Tab label="Item Two" {...a11yProps(1)} />
-          <Tab label="Item Three" {...a11yProps(2)} />
+          {tabs.map((tab, index) => (
+            <Tab label={tab.header} {...a11yProps(index)} />
+          ))}
         </Tabs>
       </Box>
-      <CustomTabPanel value={value} index={0}>
-        Item One
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
-        Item Two
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={2}>
-        Item Three
-      </CustomTabPanel>
+      {tabs.map((tab, index) => (
+        <CustomTabPanel value={value} index={index}>
+          {tab.content}
+        </CustomTabPanel>
+      ))}
     </Box>
   );
 };

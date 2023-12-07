@@ -37,7 +37,7 @@ const StorePage = () => {
       >
         <div
           style={{
-            margin: "1% 3%",
+            margin: "2% 3% 0",
             background: "rgba(250,250,250,0.3)",
             padding: "4px",
             fontSize: "16px",

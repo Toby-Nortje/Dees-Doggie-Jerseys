@@ -3,6 +3,7 @@ import "./index.css";
 import { useEffect, useState } from "react";
 import { useMediaQuery } from "@mui/material";
 import { useQueryParams } from "hooks";
+import { useSearchParams } from "react-router-dom";
 
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -38,6 +39,8 @@ const removeDuplicate = (arr) => {
 const StockPage = () => {
   const isLargeScreens = useMediaQuery("(min-width: 1000px)");
   const isMediumScreens = useMediaQuery("(min-width: 640px)");
+
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const [test, setTest] = useState(stockItems);
   const [filteredStock, setFilteredStock] = useState([]);

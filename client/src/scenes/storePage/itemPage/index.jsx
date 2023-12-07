@@ -4,11 +4,14 @@ import ItemImageTabWidget from "widgets/ItemImageTabWidget";
 import ItemInfoTabWidget from "widgets/ItemInfoTabWidget";
 import { useMediaQuery } from "@mui/material";
 
+import { stockItems } from "../stockPage/stock";
+
 const ItemPage = () => {
   const { id } = useParams();
   const isLargeScreens = useMediaQuery("(min-width: 1000px)");
   const isMediumScreens = useMediaQuery("(min-width: 640px)");
-
+  const stock = stockItems.filter((item) => item._id == id)[0];
+  console.log(stock);
   return (
     <div style={{ padding: "2%" }}>
       <div
@@ -19,8 +22,8 @@ const ItemPage = () => {
           flexDirection: isMediumScreens ? "row" : "column",
         }}
       >
-        <ItemImageTabWidget style={{ flexBasis: "40%" }} />
-        <ItemInfoTabWidget style={{ flexBasis: "50%" }} />
+        <ItemImageTabWidget item={stock} style={{ flexBasis: "40%" }} />
+        <ItemInfoTabWidget item={stock} style={{ flexBasis: "50%" }} />
       </div>
       <div>
         <ItemDescWidget />

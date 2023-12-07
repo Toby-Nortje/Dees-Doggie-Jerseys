@@ -51,5 +51,8 @@ export const themeSettings = () => {
         alt: colorTokens.grey[0],
       },
     },
+    typography: {
+      fontFamily: `"Hedvig Letters Serif", serif`,
+    },
   };
 };

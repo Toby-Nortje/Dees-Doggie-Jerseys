@@ -1,6 +1,6 @@
 import ImageTabs from "components/ImageTabs";
 
-const ItemImageTabWidget = () => {
+const ItemImageTabWidget = ({ item }) => {
   return (
     <div style={{}}>
       <ImageTabs />
